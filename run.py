@@ -5,16 +5,10 @@ import osu_fav_downloader
 
 
 class Argument:
-
-    def _get_user_info(self):
-        self.username = input("Input your username: ")
-        self.password = getpass.getpass("Input your password: ")
-
     def _get_sigin_in_info(self,
                            downloader: osu_fav_downloader.OsuFavDownloader):
         if downloader.check_cookie():
-            delete = input(
-                "Cookie has existed, delete it and re-sign in? [Y/N]: ")
+            delete = input("Cookie has existed, delete it? [Y/N]: ")
             return not (delete == "Y" or delete == 'y')
         else:
             print("Cookie does not exist, please sign in")
@@ -27,7 +21,8 @@ class Argument:
         self.list_size = 0
 
         if (self._get_sigin_in_info(downloader) == False):
-            self._get_user_info()
+            self.username = input("Input your username: ")
+            self.password = getpass.getpass("Input your password: ")
         self.user_id = input("Input the user id (* if current user): ")
         self.list_size = int(input("Input the size of list (default is 100): "))
 
